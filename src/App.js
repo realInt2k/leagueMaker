@@ -8,13 +8,16 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Web3Token from 'web3-token';
+const Web3 = require("web3");
+import axios from 'axios';
+
 const LMabi = require("./contracts/LeagueMaker.json");
 
 function App() {
   
   var [selectedAddress, setAddress] = useState();
   var [contract, setContract] = useState();
-  
   function ViewRewards(id){
     var [leagues, setLeagues] = useState(0);
     const [time, setTime] = useState(Date.now());
@@ -112,17 +115,28 @@ function App() {
   }
 
   async function connectToMetamask() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const signer = provider.getSigner();
-    const accounts = await provider.send("eth_requestAccounts", []);
+    // const provider = new ethers.providers.Web3Provider(window.ethereum)
+    // const signer = provider.getSigner();
+    // const accounts = await provider.send("eth_requestAccounts", []);
 
-    let abi = LMabi;
-    let contractAddress = "0x89A9164e14e6729F826F6b26588f65D054826BFD";
-    let contract = new ethers.Contract(contractAddress, abi, provider);
-    let contractWithSigner = contract.connect(signer);
+    // let abi = LMabi;
+    // let contractAddress = "0x89A9164e14e6729F826F6b26588f65D054826BFD";
+    // let contract = new ethers.Contract(contractAddress, abi, provider);
+    // let contractWithSigner = contract.connect(signer);
 
-    setAddress(accounts[0]);
-    setContract(contractWithSigner);
+
+    const web3 = new Web3(ethereum);
+    await ethereum.enable();
+
+    const token = await Web3Token.sign(msg => web3.eth.personal.sign(msg, address), '1d');
+    axios.get('localhost:3030/auth/signin', {
+      headers: {
+        'Autheorization': token
+      }
+    })
+
+    // setAddress(accounts[0]);
+    // setContract(contractWithSigner);
   }
 
   if (!selectedAddress) {
@@ -132,8 +146,8 @@ function App() {
   } else {
     return (
       <div>
-        <p>Welcome {selectedAddress}</p>
-        <button onClick={() => openLeague()}>Create League</button>
+        <p>Welcome!</p>
+        {/* <button onClick={() => openLeague()}>Create League</button>
         <p>Open leagues that you can join: </p>
         <LeagueCards myFunc = {contract.viewOpenLeagues}
         button = {LiveLeagueButton}></LeagueCards>
@@ -143,7 +157,7 @@ function App() {
         button = {CloseLeagueButton}></LeagueCards>
 
         <p>Your claimable rewards: </p>
-        <ViewRewards></ViewRewards>
+        <ViewRewards></ViewRewards> */}
       </div>
     );
   }
