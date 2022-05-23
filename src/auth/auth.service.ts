@@ -10,17 +10,18 @@ export class AuthService {
         private config: ConfigService,
     ){}
 
-    async signup(metamaskAcc: string) {
+    async signin(metamaskAcc: string) {
         // generate the hash
         //const hash = await argon.hash(dto.password);
         // save the new user in the db
         try {
-          let user:any;
+          //let user:any;
           return this.signToken(metamaskAcc);
         } catch (error) {
             
         }
       }
+    
 
     async signToken(
         metamaskAcc: string,
