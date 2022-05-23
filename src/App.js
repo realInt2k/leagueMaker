@@ -129,6 +129,7 @@ function App() {
     await window.ethereum.enable();
 
     const token = await Web3Token.sign(msg => web3.eth.personal.sign(msg, address), '1d');
+    const address = (await web3.eth.getAccounts())[0];
     axios.get('localhost:3030/auth/signin', {
       headers: {
         'Autheorization': token
