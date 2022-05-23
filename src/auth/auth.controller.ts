@@ -7,11 +7,15 @@ export class AuthController {
     @Get("signUp")
     async signUp(@Req() req: Request): Promise<any>
     {
-        console.log(req);
+        console.log(req.body);
         const provider:any = req.body;
-        //const signer = provider.getSigner();
-        //const accounts = await provider.send("eth_requestAccounts", []);
-        return "signed up";
+        try{
+            const signer = provider.getSigner();
+            const accounts = await provider.send("eth_requestAccounts", []);
+        } catch {
+            return "signed up failed"
+        }
+        return "signed up ok";
     }
 
     @Get("signBS")
