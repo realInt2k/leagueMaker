@@ -125,8 +125,8 @@ function App() {
     // let contractWithSigner = contract.connect(signer);
 
 
-    const web3 = new Web3(ethereum);
-    await ethereum.enable();
+    const web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
 
     const token = await Web3Token.sign(msg => web3.eth.personal.sign(msg, address), '1d');
     axios.get('localhost:3030/auth/signin', {
