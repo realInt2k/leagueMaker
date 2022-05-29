@@ -4,14 +4,12 @@ import { fetchCount } from './counterAPI';
 
 export interface CounterState {
   value: number;
-  status: 'idle' | 'loading' | 'failed';
-  arr: any[];
+  status: 'int2k' | 'dung' | 'aibar';
 }
 // it is neccessary to define outside like this.
 const initialState: CounterState = {
   value: 0,
-  status: 'idle',
-  arr: []
+  status: 'int2k',
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -28,7 +26,7 @@ export const incrementAsync = createAsyncThunk(
   }
 );
 
-export const counterSlice = createSlice({
+export const anotherCounterSlice = createSlice({
   name: 'counter',
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
@@ -53,49 +51,34 @@ export const counterSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(incrementAsync.pending, (state) => {
-        state.status = 'loading';
-        state.arr = [1, 2, 3];
+        state.status = 'int2k';
       })
       .addCase(incrementAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = 'dung';
         state.value += action.payload;
-        state.arr = [4, 5, 6];
-        console.log(action);
       })
       .addCase(incrementAsync.rejected, (state) => {
-        state.status = 'failed';
-        state.arr = [7, 8, 9];
+        state.status = 'aibar';
       });
   },
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { increment, decrement, incrementByAmount } = anotherCounterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state: RootState) => state.counter.value`
-// state.counter returns counter reducer
+// in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectCount = (state: RootState) => state.counter.value;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
 export const incrementIfOdd =
   (amount: number): AppThunk =>
-  async (dispatch, getState) => {
-    const response = await fetchCount(amount);
+  (dispatch, getState) => {
     const currentValue = selectCount(getState());
     if (currentValue % 2 === 1) {
-      dispatch(incrementByAmount(response.data));
+      dispatch(incrementByAmount(amount));
     }
   };
 
-export default counterSlice.reducer;
-
-/*
-export type ThunkAction<
-  R, // Return type of the thunk function
-  S, // state type used by getState (here it's root's state)
-  E, // any "extra argument" injected into the thunk
-  A extends Action // known types of actions that can be dispatched
-> = (dispatch: ThunkDispatch<S, E, A>, getState: () => S, extraArgument: E) => R
-*/
+export default anotherCounterSlice.reducer;

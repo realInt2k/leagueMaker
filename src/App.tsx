@@ -13,6 +13,9 @@ import * as Web3Token from 'web3-token';
 
 import axios from 'axios';
 import { Counter } from './features/counter/Counter';
+import Metamask from './API/metamask';
+
+const metamask = new Metamask();
 
 const LMabi = require("./contracts/LeagueMaker.json");
 
@@ -125,14 +128,12 @@ const App = () => {
 
     //const web3 = new Web3(window.ethereum);
     //await window.ethereum.enable();
-
-    const token = await Web3Token.sign((msg:any) => signer.signMessage(msg), '1d');
   }
 
   if (!selectedAddress) {
     return (
       <>
-        <button onClick={() => connectToMetamask()}>Connect to Metamask</button>
+        <button onClick={() => metamask.connectToMetamask()}>Connect to Metamask</button>
         <Counter />
       </>
     )
