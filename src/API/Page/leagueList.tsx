@@ -5,6 +5,8 @@ import {
     useQuery,
     gql
   } from "@apollo/client";
+import { useAppSelector } from "../../app/hooks";
+import { getContract } from "../../features/contractRedux/contractRedux";
 
 /*
 No, Game tile, Type, Created, Live On, State (Waiting, Playing, Done, Canceled)
@@ -17,6 +19,10 @@ class LeagueList {
             uri : process.env.REACT_APP_graphqlEndPoint,
             cache: new InMemoryCache()
         });
+    }
+    async test(contract:any)
+    {
+        
     }
     async getList()
     {

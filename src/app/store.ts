@@ -2,6 +2,12 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import anotherCounterSlice from '../features/counter/anotherCounterSlice';
 import leagueList from '../features/leagueList/leagueList';
+import contractRedux from '../features/contractRedux/contractRedux';
+import { getDefaultMiddleware } from '@reduxjs/toolkit';
+
+const customizedMiddleware = getDefaultMiddleware({
+  serializableCheck: false
+})
 
 // here define all the reducers.
 export const store = configureStore({
@@ -9,7 +15,11 @@ export const store = configureStore({
     counter: counterReducer,
     counter2: anotherCounterSlice,
     ll: leagueList,
+    contractRedux: contractRedux,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  }),
 });
 
 export type AppDispatch = typeof store.dispatch;

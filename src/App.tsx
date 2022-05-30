@@ -20,6 +20,11 @@ import {
   getList
 } from './features/leagueList/leagueList';
 
+import {
+  connectContract,
+  getContract
+} from './features/contractRedux/contractRedux';
+
 import { useAppSelector, useAppDispatch } from './app/hooks';
 
 const metamask = new Metamask();
@@ -137,24 +142,37 @@ const App = () => {
     //await window.ethereum.enable();
   }
   let dispatch = useAppDispatch();
-  console.log("before updating list");
-  let list = useAppSelector(getList);
+  // console.log("before updating list");
+  // let list = useAppSelector(getList);
+  let metamaskContract = useAppSelector(getContract);
           
   if (!selectedAddress) {
     return (
       <>
         <button onClick={() => metamask.connectToMetamask()}>Connect to Metamask</button>
-        <button onClick={() => {
+        {/* <button onClick={() => {
           dispatch(updateList("okok"));
           console.log(list);
-          }}> ok oko k</button>
+          }}> ok oko k</button> */}
+        <button onClick = {()=>{
+          dispatch(connectContract("okok"));
+        }}>
+          fetchContract
+        </button>
+        <button onClick = { async ()=>{
+          console.log(metamaskContract);  
+          let things = await metamaskContract.viewOpenLeagues();
+          console.log(things);
+        }}>
+          view open leagues
+        </button>
         <Counter />
-        <div>
+        {/* <div>
         this is the sample of the object for LeagueList Page:
         </div>
         <div>
         {JSON.stringify(list)}
-        </div>
+        </div> */}
       </>
     )
   } else {
