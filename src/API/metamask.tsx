@@ -1,11 +1,19 @@
 import { ethers } from "ethers";
 import * as Web3Token from 'web3-token';
+/*
+const getReward = async (id: any) => {
+      let tx: any;
+      if(contract)
+        tx = await contract.claimPrize(id);
+      await tx.wait();
+    }
 
+*/
 class Metamask {
     LMabi: any;
     contract: any = null;
     account: any = null;
-    constructor(path:any){
+    constructor(path:any = ""){
         if(path)
         {
             this.LMabi = require(path); 
@@ -14,6 +22,16 @@ class Metamask {
             this.LMabi= require("../contracts/LeagueMaker.json");
         }
     }
+    contractIsReady = () => {
+        return this.contract ? 1 : 0;
+    }
+    connectWithAdmin = async() => {
+        const provider = new ethers.providers.JsonRpcProvider(process.env.bnbRPC);
+        const privateKey = process.env.BNBTESTNET_PRIVATE_KEY;
+        const contractAddress = process.env.THANKS_ADDRESS_BNB;
+        const signer = new ethers.Wallet(privateKey, provider);
+        this.contract = new ethers.Contract(contractAddress, this.LMabi, signer);
+    }   
     /*
         this function will connect to your account using metamask on browser.
     */

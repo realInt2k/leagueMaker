@@ -14,6 +14,13 @@ import * as Web3Token from 'web3-token';
 import axios from 'axios';
 import { Counter } from './features/counter/Counter';
 import Metamask from './API/metamask';
+import LeagueList from './API/Page/leagueList';
+import {
+  updateList,
+  getList
+} from './features/leagueList/leagueList';
+
+import { useAppSelector, useAppDispatch } from './app/hooks';
 
 const metamask = new Metamask();
 
@@ -129,12 +136,25 @@ const App = () => {
     //const web3 = new Web3(window.ethereum);
     //await window.ethereum.enable();
   }
-
+  let dispatch = useAppDispatch();
+  console.log("before updating list");
+  let list = useAppSelector(getList);
+          
   if (!selectedAddress) {
     return (
       <>
         <button onClick={() => metamask.connectToMetamask()}>Connect to Metamask</button>
+        <button onClick={() => {
+          dispatch(updateList("okok"));
+          console.log(list);
+          }}> ok oko k</button>
         <Counter />
+        <div>
+        this is the sample of the object for LeagueList Page:
+        </div>
+        <div>
+        {JSON.stringify(list)}
+        </div>
       </>
     )
   } else {
