@@ -1,15 +1,8 @@
 import { ethers } from "ethers";
-import * as Web3Token from 'web3-token';
-/*
-const getReward = async (id: any) => {
-      let tx: any;
-      if(contract)
-        tx = await contract.claimPrize(id);
-      await tx.wait();
-    }
 
-*/
-const LMabi= require("../contracts/LeagueMaker.json");
+const LMabi= require("../../contracts/LeagueMaker.json");
+
+
 
 export const connectToMetamask = async () => {
         try {
@@ -47,7 +40,7 @@ export async function openLeague(
     await tx.wait();
 }
 
-export async function liveLeagueButton(
+export async function liveLeague(
     contract: ethers.Contract,
     _leagueId: BigInt
 ) {
@@ -55,7 +48,7 @@ export async function liveLeagueButton(
       await tx.wait();
 }
 
-export async function closeLeagueButton(
+export async function closeLeague(
     contract: ethers.Contract,
     _leagueId: BigInt,
     _winners: string[]
