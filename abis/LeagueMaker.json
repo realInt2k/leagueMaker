@@ -111,6 +111,12 @@
         "internalType": "string",
         "name": "_nickName",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isBlocked",
+        "type": "bool"
       }
     ],
     "name": "leagueJoined",
@@ -170,6 +176,25 @@
       }
     ],
     "name": "prizeClaimed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_leagueId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "toggleBlockPlayerEvent",
     "type": "event"
   },
   {
@@ -291,6 +316,24 @@
   {
     "inputs": [],
     "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_leagueId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_player",
+        "type": "string"
+      }
+    ],
+    "name": "toggleBlockPlayer",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

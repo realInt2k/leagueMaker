@@ -28,8 +28,10 @@ dataSources:
           handler: handleLeagueLive
         - event: leagueClosed(uint256,uint256,string[],uint256)
           handler: handleLeagueClosed
-        - event: leagueJoined(uint256,uint256,address,string)
+        - event: leagueJoined(uint256,uint256,address,string,bool)
           handler: handleLeagueJoined
         - event: prizeClaimed(uint256,uint256,address,string,uint256)
           handler: handlePrizeClaimed
+        - event: toggleBlockPlayerEvent(uint256,string)
+          handler: handleToggleBlockPlayerEvent
       file: LeagueMaker\LeagueMaker.wasm

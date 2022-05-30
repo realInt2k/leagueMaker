@@ -417,6 +417,7 @@ export class LeaguePlayer extends Entity {
     this.set("id", Value.fromString(id));
 
     this.set("isWinner", Value.fromBoolean(false));
+    this.set("isBlocked", Value.fromBoolean(false));
   }
 
   save(): void {
@@ -521,12 +522,23 @@ export class LeaguePlayer extends Entity {
   set isWinner(value: boolean) {
     this.set("isWinner", Value.fromBoolean(value));
   }
+
+  get isBlocked(): boolean {
+    let value = this.get("isBlocked");
+    return value!.toBoolean();
+  }
+
+  set isBlocked(value: boolean) {
+    this.set("isBlocked", Value.fromBoolean(value));
+  }
 }
 
 export class User extends Entity {
   constructor(id: string) {
     super();
     this.set("id", Value.fromString(id));
+
+    this.set("isBlocked", Value.fromBoolean(false));
   }
 
   save(): void {
@@ -604,6 +616,15 @@ export class User extends Entity {
     } else {
       this.set("totalLeaguesWinner", Value.fromBigInt(<BigInt>value));
     }
+  }
+
+  get isBlocked(): boolean {
+    let value = this.get("isBlocked");
+    return value!.toBoolean();
+  }
+
+  set isBlocked(value: boolean) {
+    this.set("isBlocked", Value.fromBoolean(value));
   }
 
   get leaguePlayersByUser(): Array<string> | null {

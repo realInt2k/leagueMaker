@@ -40,6 +40,7 @@ type LeaguePlayer @entity {
   user: User
   league: League
   isWinner: Boolean
+  isBlocked: Boolean
 }
 
 type User @entity {
@@ -48,6 +49,7 @@ type User @entity {
   address: String
   totalLeagues: BigInt 
   totalLeaguesWinner: BigInt 
+  isBlocked: Boolean
 
   leaguePlayersByUser: [LeaguePlayer!]@derivedFrom(field: "user") 
   prizes: [Prize!]@derivedFrom(field: "claimableBy")

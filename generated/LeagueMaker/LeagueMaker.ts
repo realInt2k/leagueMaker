@@ -120,6 +120,10 @@ export class leagueJoined__Params {
   get _nickName(): string {
     return this._event.parameters[3].value.toString();
   }
+
+  get isBlocked(): boolean {
+    return this._event.parameters[4].value.toBoolean();
+  }
 }
 
 export class leagueLive extends ethereum.Event {
@@ -175,6 +179,28 @@ export class prizeClaimed__Params {
 
   get _amount(): BigInt {
     return this._event.parameters[4].value.toBigInt();
+  }
+}
+
+export class toggleBlockPlayerEvent extends ethereum.Event {
+  get params(): toggleBlockPlayerEvent__Params {
+    return new toggleBlockPlayerEvent__Params(this);
+  }
+}
+
+export class toggleBlockPlayerEvent__Params {
+  _event: toggleBlockPlayerEvent;
+
+  constructor(event: toggleBlockPlayerEvent) {
+    this._event = event;
+  }
+
+  get _leagueId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get _name(): string {
+    return this._event.parameters[1].value.toString();
   }
 }
 
@@ -645,6 +671,40 @@ export class RenounceOwnershipCall__Outputs {
   _call: RenounceOwnershipCall;
 
   constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class ToggleBlockPlayerCall extends ethereum.Call {
+  get inputs(): ToggleBlockPlayerCall__Inputs {
+    return new ToggleBlockPlayerCall__Inputs(this);
+  }
+
+  get outputs(): ToggleBlockPlayerCall__Outputs {
+    return new ToggleBlockPlayerCall__Outputs(this);
+  }
+}
+
+export class ToggleBlockPlayerCall__Inputs {
+  _call: ToggleBlockPlayerCall;
+
+  constructor(call: ToggleBlockPlayerCall) {
+    this._call = call;
+  }
+
+  get _leagueId(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get _player(): string {
+    return this._call.inputValues[1].value.toString();
+  }
+}
+
+export class ToggleBlockPlayerCall__Outputs {
+  _call: ToggleBlockPlayerCall;
+
+  constructor(call: ToggleBlockPlayerCall) {
     this._call = call;
   }
 }
