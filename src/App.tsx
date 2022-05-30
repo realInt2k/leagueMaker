@@ -13,7 +13,7 @@ import * as Web3Token from 'web3-token';
 
 import axios from 'axios';
 import { Counter } from './features/counter/Counter';
-import Metamask from './API/metamask';
+import Metamask from './API/writeData/metamask';
 import LeagueList from './API/Page/leagueList';
 import {
   updateList,

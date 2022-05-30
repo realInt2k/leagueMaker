@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
 import LeagueList from '../../API/Page/leagueList';
-import Metamask from '../../API/metamask';
+import Metamask from '../../API/writeData/metamask';
 
 export interface contractReduxState {
   contract:any;
