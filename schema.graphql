@@ -18,7 +18,7 @@ type League @entity {
   closeTime: BigInt
 
   status: String 
-
+  
   players: [LeaguePlayer!]@derivedFrom(field: "league")
   prizes: [Prize!]@derivedFrom(field: "league")
 }

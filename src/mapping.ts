@@ -1,4 +1,4 @@
-import { BigInt, BigDecimal, Bytes, log } from "@graphprotocol/graph-ts";
+import { BigInt, BigDecimal, Bytes, log, Address } from "@graphprotocol/graph-ts";
 
 import {
   LeagueMaker,
@@ -76,9 +76,10 @@ export function handleLeagueJoined(event: leagueJoined): void{
   leaguePlayer.joinedAt = event.params._time;
   leaguePlayer.isBlocked = event.params.isBlocked;
 
-  let user = User.load(event.params._pAddress.toString());
+  let user = User.load(event.params._pAddress.toHexString().toLowerCase());
   if (user === null){
-    user = new User(event.params._pAddress.toString());
+    user = new User(event.params._pAddress.toHexString().toLowerCase());
+    user.address = event.params._pAddress.toHexString().toLowerCase();
     user.totalLeagues = ONE_BI;
     user.isBlocked = event.params.isBlocked;
   }else{
@@ -116,7 +117,7 @@ export function handleLeagueClosed(event: leagueClosed): void {
     if(leaguePlayer){
       leaguePlayer.isWinner = true;
       let str: string = leaguePlayer.user as string;
-      let user = User.load(str);
+      let user = User.load(str.toLowerCase());
       if (user){
         prize.claimableBy = user.id;
         if (user.totalLeaguesWinner){

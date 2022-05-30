@@ -6,7 +6,7 @@ dataSources:
     name: LeagueMaker
     network: chapel
     source:
-      address: "0x741Efa8F01793Dbd320E77FFEFA7A082dE7c4b66"
+      address: "0x109A7546010C953D7D82E3120B5467829fC12aC5"
       abi: LeagueMaker
       startBlock: 19736530
     mapping:
