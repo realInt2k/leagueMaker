@@ -41,4 +41,3 @@ export const getUserData = async (
       let userData = await generalRequest(queryString);
       return userData;
 }
-
